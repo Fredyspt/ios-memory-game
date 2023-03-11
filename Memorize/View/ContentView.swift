@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var emojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🛴", "🚲", "🛵"].shuffled()
+    @ObservedObject var viewModel: EmojiMemoryGame
+    
     var body: some View {
         VStack {
             Text("Memorize!")
                 .font(.largeTitle)
                 .foregroundColor(.red)
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
-                    ForEach(emojis, id: \.self) { emoji in
-                        CardView(content: emoji)
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
+                    ForEach(viewModel.cards) { card in
+                        CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
+                            .onTapGesture {
+                                viewModel.choose(card)
+                            }
                     }
                 }
                 .foregroundColor(.red)
@@ -41,7 +45,7 @@ struct ContentView: View {
     
     var carButton: some View {
         Button {
-            emojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🛴", "🚲", "🛵"].shuffled()
+//            emojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🛴", "🚲", "🛵"].shuffled()
         } label: {
             VStack {
                 Image(systemName: "car")
@@ -53,7 +57,7 @@ struct ContentView: View {
     
     var sportsButton: some View {
         Button {
-            emojis = ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🏐", "🏉", "🥏", "🎱", "🏓", "🏸", "🏑", "🏏"].shuffled()
+//            emojis = ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🏐", "🏉", "🥏", "🎱", "🏓", "🏸", "🏑", "🏏"].shuffled()
         } label: {
             VStack {
                 Image(systemName: "figure.run")
@@ -65,7 +69,7 @@ struct ContentView: View {
     
     var animalsButton: some View {
         Button {
-            emojis = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️"].shuffled()
+//            emojis = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️"].shuffled()
         } label: {
             VStack {
                 Image(systemName: "pawprint")
@@ -77,31 +81,27 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    // This variable is pointing to some location in memory outside of the
-    // allocated memory for this view, so whenever its state (value) changes,
-    // swiftui will rebuild this entire view
-    @State var isFaceUp = true
-    var content: String
+    var card: MemoryGame<String>.Card
     
     var body: some View {
         ZStack {
-            let cardShape = RoundedRectangle(cornerRadius: 25.0)
-            if isFaceUp {
-                cardShape.foregroundColor(.white)
-                cardShape.strokeBorder(lineWidth: 3)
-                Text(content).font(.largeTitle)
+            let cardShape = RoundedRectangle(cornerRadius: 20.0)
+            if card.isFaceUp {
+                cardShape.fill().foregroundColor(.white)
+                cardShape.strokeBorder(lineWidth: 2)
+                Text(card.content).font(.largeTitle)
+            } else if card.isMatched {
+                cardShape.opacity(0)
             } else {
-                cardShape
+                cardShape.fill()
             }
-        }
-        .onTapGesture {
-            isFaceUp = !isFaceUp
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let game = EmojiMemoryGame()
+        ContentView(viewModel: game)
     }
 }
