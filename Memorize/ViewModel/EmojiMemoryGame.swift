@@ -9,23 +9,59 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     typealias Card = MemoryGame<String>.Card
+    typealias Theme = ThemeManager.Theme
     
-    private static let emojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🛴", "🚲", "🛵"]
+    @Published private var memoryGame: MemoryGame<String>
+    @Published private var themeManager: ThemeManager
     
-    private static func createMemoryGame() -> MemoryGame<String> {
-        MemoryGame(numberOfPairsOfCards: 4) { pairIndex in
-         emojis[pairIndex]
+    var cardColor: Color {
+        switch themeManager.activeTheme?.themeColor {
+        case "red": return .red
+        case "yellow": return .yellow
+        case "blue": return .blue
+        case "orange": return .orange
+        case "green": return .green
+        case "brown": return .brown
+        default: return .black
         }
     }
     
-    @Published private var model = createMemoryGame()
-    
     var cards: Array<Card> {
-        model.cards
+        memoryGame.cards
+    }
+    
+    var themeName: String {
+        themeManager.activeTheme?.name ?? "Memorize!"
+    }
+    
+    init() {
+        let themeManager = ThemeManager()
+        memoryGame = EmojiMemoryGame.createMemoryGame(withTheme: themeManager.activeTheme!)
+        self.themeManager = themeManager
+    }
+    
+    
+    private static func createMemoryGame(withTheme theme: Theme) -> MemoryGame<String> {
+        let numberOfPairs = theme.numberOfPairsOfCards > theme.emojis.count ? theme.emojis.count - 1 : theme.numberOfPairsOfCards
+        
+        return MemoryGame(numberOfPairsOfCards: numberOfPairs) { pairIndex in
+            theme.emojis.shuffled()[pairIndex]
+        }
     }
     
     //MARK: - Intent
     func choose(_ card: Card) {
-        model.choose(card)
+        memoryGame.choose(card)
+    }
+    
+    func addTheme(_ theme: Theme) {
+        themeManager.addTheme(theme)
+    }
+    
+    func startNewGame() {
+        if let themeName = themeManager.themes.randomElement()?.name {
+            themeManager.setActiveTheme(named: themeName)
+        }
+        memoryGame = EmojiMemoryGame.createMemoryGame(withTheme: themeManager.activeTheme!)
     }
 }

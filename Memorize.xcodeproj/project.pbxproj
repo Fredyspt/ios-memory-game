@@ -13,6 +13,7 @@
 		4805907029B5170D00470839 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4805906F29B5170D00470839 /* Preview Assets.xcassets */; };
 		4805907729B85E5A00470839 /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4805907629B85E5A00470839 /* MemoryGame.swift */; };
 		4805907929B862FF00470839 /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4805907829B862FF00470839 /* EmojiMemoryGame.swift */; };
+		481E77C029C8FE27009A1D57 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481E77BF29C8FE27009A1D57 /* ThemeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		4805906F29B5170D00470839 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4805907629B85E5A00470839 /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
 		4805907829B862FF00470839 /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
+		481E77BF29C8FE27009A1D57 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				4805907629B85E5A00470839 /* MemoryGame.swift */,
+				481E77BF29C8FE27009A1D57 /* ThemeManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			files = (
 				4805907729B85E5A00470839 /* MemoryGame.swift in Sources */,
 				4805906B29B5170C00470839 /* EmojiMemoryGameView.swift in Sources */,
+				481E77C029C8FE27009A1D57 /* ThemeManager.swift in Sources */,
 				4805906929B5170C00470839 /* MemorizeApp.swift in Sources */,
 				4805907929B862FF00470839 /* EmojiMemoryGame.swift in Sources */,
 			);

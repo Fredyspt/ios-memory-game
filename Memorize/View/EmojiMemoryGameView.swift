@@ -12,7 +12,7 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
-            Text("Memorize!")
+            Text(game.themeName)
                 .font(.largeTitle)
                 .foregroundColor(.red)
             ScrollView {
@@ -25,58 +25,13 @@ struct EmojiMemoryGameView: View {
                             }
                     }
                 }
-                .foregroundColor(.red)
+                .foregroundColor(game.cardColor)
             }
-            Spacer()
-            HStack {
-                Spacer()
-                carButton
-                Spacer()
-                sportsButton
-                Spacer()
-                animalsButton
-                Spacer()
+            Button("New Game") {
+                game.startNewGame()
             }
-            .font(.largeTitle)
-            .padding(.horizontal)
         }
         .padding(.horizontal)
-    }
-    
-    var carButton: some View {
-        Button {
-//            emojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🛴", "🚲", "🛵"].shuffled()
-        } label: {
-            VStack {
-                Image(systemName: "car")
-                Text("Vehicles")
-                    .font(.system(size: 14))
-            }
-        }
-    }
-    
-    var sportsButton: some View {
-        Button {
-//            emojis = ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🏐", "🏉", "🥏", "🎱", "🏓", "🏸", "🏑", "🏏"].shuffled()
-        } label: {
-            VStack {
-                Image(systemName: "figure.run")
-                Text("Sports")
-                    .font(.system(size: 14))
-            }
-        }
-    }
-    
-    var animalsButton: some View {
-        Button {
-//            emojis = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️"].shuffled()
-        } label: {
-            VStack {
-                Image(systemName: "pawprint")
-                Text("Animals")
-                    .font(.system(size: 14))
-            }
-        }
     }
 }
 
