@@ -15,18 +15,14 @@ struct EmojiMemoryGameView: View {
             Text(game.themeName)
                 .font(.largeTitle)
                 .foregroundColor(.red)
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                    ForEach(game.cards) { card in
-                        CardView(card: card)
-                            .aspectRatio(2/3, contentMode: .fit)
-                            .onTapGesture {
-                                game.choose(card)
-                            }
+            AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
+                CardView(card: card)
+                    .padding(4)
+                    .onTapGesture {
+                        game.choose(card)
                     }
-                }
-                .foregroundColor(game.cardColor)
             }
+            .foregroundColor(game.cardColor)
             Button("New Game") {
                 game.startNewGame()
             }
@@ -45,6 +41,9 @@ struct CardView: View {
                 if card.isFaceUp {
                     cardShape.fill().foregroundColor(.white)
                     cardShape.strokeBorder(lineWidth: CardConstants.borderWidth)
+                    Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))
+                        .padding(5)
+                        .opacity(0.5)
                     Text(card.content).font(font(in: geometry.size))
                 } else if card.isMatched {
                     cardShape.opacity(0)
@@ -60,15 +59,16 @@ struct CardView: View {
     }
     
     private struct CardConstants {
-        static let cornerRadius: CGFloat = 20.0
-        static let fontScaling: CGFloat = 0.8
-        static let borderWidth: CGFloat = 2
+        static let cornerRadius: CGFloat = 10
+        static let fontScaling: CGFloat = 0.75
+        static let borderWidth: CGFloat = 3
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let game = EmojiMemoryGame()
-        EmojiMemoryGameView(game: game)
+        game.choose(game.cards.first!)
+        return EmojiMemoryGameView(game: game)
     }
 }

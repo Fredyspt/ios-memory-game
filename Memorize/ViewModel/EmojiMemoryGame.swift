@@ -45,7 +45,7 @@ class EmojiMemoryGame: ObservableObject {
         let numberOfPairs = theme.numberOfPairsOfCards > theme.emojis.count ? theme.emojis.count - 1 : theme.numberOfPairsOfCards
         
         return MemoryGame(numberOfPairsOfCards: numberOfPairs) { pairIndex in
-            theme.emojis.shuffled()[pairIndex]
+            theme.emojis[pairIndex]
         }
     }
     

@@ -14,6 +14,8 @@
 		4805907729B85E5A00470839 /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4805907629B85E5A00470839 /* MemoryGame.swift */; };
 		4805907929B862FF00470839 /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4805907829B862FF00470839 /* EmojiMemoryGame.swift */; };
 		481E77C029C8FE27009A1D57 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481E77BF29C8FE27009A1D57 /* ThemeManager.swift */; };
+		487BBD3729CE391500A41BD9 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487BBD3629CE391500A41BD9 /* AspectVGrid.swift */; };
+		487BBD3929CE67F100A41BD9 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487BBD3829CE67F100A41BD9 /* Pie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		4805907629B85E5A00470839 /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
 		4805907829B862FF00470839 /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
 		481E77BF29C8FE27009A1D57 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		487BBD3629CE391500A41BD9 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = SOURCE_ROOT; };
+		487BBD3829CE67F100A41BD9 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +99,9 @@
 		4805907C29B8671800470839 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				487BBD3629CE391500A41BD9 /* AspectVGrid.swift */,
 				4805906A29B5170C00470839 /* EmojiMemoryGameView.swift */,
+				487BBD3829CE67F100A41BD9 /* Pie.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -172,7 +178,9 @@
 			files = (
 				4805907729B85E5A00470839 /* MemoryGame.swift in Sources */,
 				4805906B29B5170C00470839 /* EmojiMemoryGameView.swift in Sources */,
+				487BBD3729CE391500A41BD9 /* AspectVGrid.swift in Sources */,
 				481E77C029C8FE27009A1D57 /* ThemeManager.swift in Sources */,
+				487BBD3929CE67F100A41BD9 /* Pie.swift in Sources */,
 				4805906929B5170C00470839 /* MemorizeApp.swift in Sources */,
 				4805907929B862FF00470839 /* EmojiMemoryGame.swift in Sources */,
 			);
