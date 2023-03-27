@@ -9,13 +9,21 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     typealias Card = MemoryGame<String>.Card
-    typealias Theme = ThemeManager.Theme
+    
+    private static var themes = [
+        Theme(name: "Vehicles", emojis: ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🛴", "🚲", "🛵"], numberOfPairsOfCards: 10, color: "red"),
+        Theme(name: "Sports", emojis: ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🏐", "🏉", "🥏", "🎱", "🏓", "🏸", "🏑", "🏏"], numberOfPairsOfCards: 8, color: "blue"),
+        Theme(name: "Animals", emojis: ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️"], numberOfPairsOfCards: 6, color: "yellow"),
+        Theme(name: "Fruits", emojis: ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🫐"], numberOfPairsOfCards: 10, color: "orange"),
+        Theme(name: "Drinks", emojis: ["🍼", "🍹", "🥃", "🍸", "🧃", "🥤", "🍺", "☕️"], numberOfPairsOfCards: 8, color: "green"),
+        Theme(name: "Instruments", emojis: ["🎤", "🎹", "🥁", "🎷", "🎸", "🎻"], numberOfPairsOfCards: 6, color: "brown"),
+    ]
     
     @Published private var memoryGame: MemoryGame<String>
-    @Published private var themeManager: ThemeManager
+    var theme: Theme
     
     var cardColor: Color {
-        switch themeManager.activeTheme?.themeColor {
+        switch theme.color {
         case "red": return .red
         case "yellow": return .yellow
         case "blue": return .blue
@@ -31,20 +39,17 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     var themeName: String {
-        themeManager.activeTheme?.name ?? "Memorize!"
+        theme.name
     }
     
     init() {
-        let themeManager = ThemeManager()
-        memoryGame = EmojiMemoryGame.createMemoryGame(withTheme: themeManager.activeTheme!)
-        self.themeManager = themeManager
+        theme = EmojiMemoryGame.themes.randomElement()!
+        theme.emojis.shuffle()
+        memoryGame = EmojiMemoryGame.createMemoryGame(withTheme: theme)
     }
     
-    
     private static func createMemoryGame(withTheme theme: Theme) -> MemoryGame<String> {
-        let numberOfPairs = theme.numberOfPairsOfCards > theme.emojis.count ? theme.emojis.count - 1 : theme.numberOfPairsOfCards
-        
-        return MemoryGame(numberOfPairsOfCards: numberOfPairs) { pairIndex in
+        MemoryGame(numberOfPairsOfCards: theme.numberOfPairsOfCards) { pairIndex in
             theme.emojis[pairIndex]
         }
     }
@@ -55,13 +60,12 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     func addTheme(_ theme: Theme) {
-        themeManager.addTheme(theme)
+        EmojiMemoryGame.themes.append(theme)
     }
     
     func startNewGame() {
-        if let themeName = themeManager.themes.randomElement()?.name {
-            themeManager.setActiveTheme(named: themeName)
-        }
-        memoryGame = EmojiMemoryGame.createMemoryGame(withTheme: themeManager.activeTheme!)
+        theme = EmojiMemoryGame.themes.randomElement()!
+        theme.emojis.shuffle()
+        memoryGame = EmojiMemoryGame.createMemoryGame(withTheme: theme)
     }
 }
