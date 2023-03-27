@@ -37,6 +37,9 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         
         for pairIndex in 0..<numberOfPairsOfCards {
             let content = createCardContent(pairIndex)
+            guard !cards.contains(where: { card in
+                card.content == content
+            }) else { continue }
             cards.append(Card(content: content, id: pairIndex*2))
             cards.append(Card(content: content, id: pairIndex*2+1))
         }
